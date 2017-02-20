@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>jQuery插件测试</title>
+    <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+    <link href="css/lib/modal.css" rel="stylesheet">
+</head>
+<body>
+
+
+<!-- Button trigger modal -->
+<a class="btn btn-primary btn-lg" data-toggle="modal" data-target="#addItemModal">Launch demo modal</a>
+
+<!-- Modal -->
+<!-- Modal -->
+<div class="modal fade" id="addItemModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="myModalLabel">添加组员</h4>
+            </div>
+            <div class="model-search">
+                <div class="input-group btn-search">
+                    <input type="text" class="form-control search-input" id="searchText" placeholder="搜索">
+                        <span class="input-group-btn">
+                            <a class="btn btn-default search-btn"  id="searchItem">
+                                <span class="glyphicon glyphicon-search"></span>
+                            </a>
+                        </span>
+                </div>
+                <div class="choose-bar">
+                    <input type="checkbox" id="checkAll">
+                    <label for="checkAll">全选</label>
+                    <!--<input type="checkbox" id="cancelAll">-->
+                    <!--<label for="cancelAll">全部取消</label>-->
+                </div>
+            </div>
+            <div class="modal-body" id="addItemBody">
+                <!--<ul class="modal-lists">-->
+                <!--<li class="item-group">-->
+                <!--<div class="group-title">-->
+                <!--<input type="checkbox" id="group1" class="groupCheckAll" />-->
+                <!--<label for="group1">企业小鱼</label>-->
+                <!--</div>-->
+                <!--<div class="group-lists">-->
+                <!--<ul>-->
+                <!--<li>-->
+                <!--<input type="checkbox" id="g1item1" class="item-checkbox"/>-->
+                <!--<label for="g1item1">-->
+                <!--<img class="item-img img-circle" src="http://182.92.218.117/profile/picture?k=60842-841862d4-5e9d-4c4f-84ca-dc734a47b2ed-1459162720661">-->
+                <!--<div class="item-detail">-->
+                <!--<span class="item-name">Fiona</span>-->
+                <!--<br/>-->
+                <!--<span class="item-phone">13810001000</span>-->
+                <!--</div>-->
+                <!--</label>-->
+                <!--</li>-->
+                <!--</ul>-->
+                <!--</div>-->
+                <!--</li>-->
+                <!--<li class="item-group">-->
+                <!--<div class="group-title">-->
+                <!--<input type="checkbox" id="group2" class="groupCheckAll" />-->
+                <!--<label for="group2">企业小鱼2</label>-->
+                <!--</div>-->
+                <!--<div class="group-lists">-->
+                <!--<ul>-->
+                <!--<li>-->
+                <!--<input type="checkbox" id="g2item1" class="item-checkbox"/>-->
+                <!--<label for="g2item1">-->
+                <!--<img class="item-img img-circle" src="http://182.92.218.117/profile/picture?k=60842-841862d4-5e9d-4c4f-84ca-dc734a47b2ed-1459162720661">-->
+                <!--<div class="item-detail">-->
+                <!--<span class="item-name">冯白杨</span>-->
+                <!--<br/>-->
+                <!--<span class="item-phone">13810001000</span>-->
+                <!--</div>-->
+                <!--</label>-->
+                <!--</li>-->
+                <!--<li>-->
+                <!--<input type="checkbox" id="g2item2" class="item-checkbox"/>-->
+                <!--<label for="g2item2">-->
+                <!--<img class="item-img " src="http://182.92.218.117/profile/picture?k=60842-841862d4-5e9d-4c4f-84ca-dc734a47b2ed-1459162720661">-->
+                <!--<div class="item-detail">-->
+                <!--<span class="item-name">小白</span>-->
+                <!--<br/>-->
+                <!--<span class="item-phone">13900012342</span>-->
+                <!--</div>-->
+                <!--</label>-->
+                <!--</li>-->
+                <!--</ul>-->
+                <!--</div>-->
+                <!--</li>-->
+                <!--</ul>-->
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                <button type="button" class="btn btn-primary" id="addItem">确定</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="js/libs/jquery.js"></script>
+<script src="js/libs/modal.js"></script>
+<script src="js/contact-dialog.js"></script>
+<script>
+    addItemModule.init();
+
+//    http://182.92.4.134/meetingSchduler/edit/?random9961=1&locale=zh-CN&userInEnterprise=true&version=2.13.0.25961&securityKey=9b0efdbb4f4c260e6d8c83489c18f4d815a4079da8c
+</script>
+</body>
+</html>
