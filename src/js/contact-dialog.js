@@ -1,54 +1,53 @@
 //数据初始化
-//var initData = [{
-//    title:"小鱼企业",
-//    lists:[{
-//        imgSrc: "http://182.92.218.117/profile/picture?k=60842-841862d4-5e9d-4c4f-84ca-dc734a47b2ed-1459162720661",
-//        name: "baiyang",
-//        phone: "13800000000"
-//    },{
-//        imgSrc:"http://182.92.218.117/profile/picture?k=60842-841862d4-5e9d-4c4f-84ca-dc734a47b2ed-1459162720661",
-//        name:"小白",
-//        phone:"13900000000"
-//    },
-//        {
-//            imgSrc:"http://182.92.218.117/profile/picture?k=60842-841862d4-5e9d-4c4f-84ca-dc734a47b2ed-1459162720661",
-//            name:"小黑",
-//            phone:"13900000000"
-//        },{
-//            imgSrc:"http://182.92.218.117/profile/picture?k=60842-841862d4-5e9d-4c4f-84ca-dc734a47b2ed-1459162720661",
-//            name:"小黑",
-//            phone:"13900000000"
-//        },{
-//            imgSrc:"http://182.92.218.117/profile/picture?k=60842-841862d4-5e9d-4c4f-84ca-dc734a47b2ed-1459162720661",
-//            name:"小黑",
-//            phone:"13900000000"
-//        },{
-//            imgSrc:"http://182.92.218.117/profile/picture?k=60842-841862d4-5e9d-4c4f-84ca-dc734a47b2ed-1459162720661",
-//            name:"小黑",
-//            phone:"13900000000"
-//        },{
-//            imgSrc:"http://182.92.218.117/profile/picture?k=60842-841862d4-5e9d-4c4f-84ca-dc734a47b2ed-1459162720661",
-//            name:"小黑",
-//            phone:"13900000000"
-//        },{
-//            imgSrc:"http://182.92.218.117/profile/picture?k=60842-841862d4-5e9d-4c4f-84ca-dc734a47b2ed-1459162720661",
-//            name:"小黑",
-//            phone:"13900000000"
-//        },{
-//            imgSrc:"http://182.92.218.117/profile/picture?k=60842-841862d4-5e9d-4c4f-84ca-dc734a47b2ed-1459162720661",
-//            name:"小黑",
-//            phone:"13900000000"
-//        }]
-//},{
-//    title:"分组2",
-//    lists:[{
-//        imgSrc:"http://182.92.218.117/profile/picture?k=60842-841862d4-5e9d-4c4f-84ca-dc734a47b2ed-1459162720661",
-//        name:"冯白杨",
-//        phone:"18201507500"
-//    }]
-//}];
+var initData = [{
+    title:"小鱼企业",
+    lists:[{
+        imgSrc: "http://182.92.218.117/profile/picture?k=60842-841862d4-5e9d-4c4f-84ca-dc734a47b2ed-1459162720661",
+        name: "baiyang",
+        phone: "13800000000"
+    },{
+        imgSrc:"http://182.92.218.117/profile/picture?k=60842-841862d4-5e9d-4c4f-84ca-dc734a47b2ed-1459162720661",
+        name:"小白",
+        phone:"13900000000"
+    },
+        {
+            imgSrc:"http://182.92.218.117/profile/picture?k=60842-841862d4-5e9d-4c4f-84ca-dc734a47b2ed-1459162720661",
+            name:"小黑",
+            phone:"13900000000"
+        },{
+            imgSrc:"http://182.92.218.117/profile/picture?k=60842-841862d4-5e9d-4c4f-84ca-dc734a47b2ed-1459162720661",
+            name:"小黑",
+            phone:"13900000000"
+        },{
+            imgSrc:"http://182.92.218.117/profile/picture?k=60842-841862d4-5e9d-4c4f-84ca-dc734a47b2ed-1459162720661",
+            name:"小黑",
+            phone:"13900000000"
+        },{
+            imgSrc:"http://182.92.218.117/profile/picture?k=60842-841862d4-5e9d-4c4f-84ca-dc734a47b2ed-1459162720661",
+            name:"小黑",
+            phone:"13900000000"
+        },{
+            imgSrc:"http://182.92.218.117/profile/picture?k=60842-841862d4-5e9d-4c4f-84ca-dc734a47b2ed-1459162720661",
+            name:"小黑",
+            phone:"13900000000"
+        },{
+            imgSrc:"http://182.92.218.117/profile/picture?k=60842-841862d4-5e9d-4c4f-84ca-dc734a47b2ed-1459162720661",
+            name:"小黑",
+            phone:"13900000000"
+        },{
+            imgSrc:"http://182.92.218.117/profile/picture?k=60842-841862d4-5e9d-4c4f-84ca-dc734a47b2ed-1459162720661",
+            name:"小黑",
+            phone:"13900000000"
+        }]
+},{
+    title:"分组2",
+    lists:[{
+        imgSrc:"http://182.92.218.117/profile/picture?k=60842-841862d4-5e9d-4c4f-84ca-dc734a47b2ed-1459162720661",
+        name:"冯白杨",
+        phone:"18201507500"
+    }]
+}];
 
-var initData = [];
 
 var addItemModule= function(){
     //在弹出modal之前,先填充数据,如果使用模板可不调用fillModalData方法

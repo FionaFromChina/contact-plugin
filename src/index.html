@@ -5,8 +5,26 @@
     <title>jQuery插件测试</title>
     <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
     <link href="css/lib/modal.css" rel="stylesheet">
+    <link href="css/lib/terminal-select.css" rel="stylesheet">
+    <link href="css/lib/common.css" rel="stylesheet">
 </head>
 <body>
+
+<div class = "terminal-select">
+    <div class="ts-choose-list">
+        <div class="ts-add-input-box">
+            <input class="ts-input" type="text" placeholder="这里是placeholder" />
+            <div class="ts-icon-add"></div>
+        </div>
+        <button class="ts-btn ts-btn-primary ts-btn-confirm">确定</button>
+    </div>
+    <div class="ts-select-list">
+        <div class="ts-select-item">
+            <label>小白</label>
+            <a>删除</a>
+        </div>
+    </div>
+</div>
 
 
 <!-- Button trigger modal -->
@@ -103,11 +121,15 @@
 
 <script src="js/libs/jquery.js"></script>
 <script src="js/libs/modal.js"></script>
-<script src="js/contact-dialog.js"></script>
+<script src="js/jquery.getcontact.js"></script>
 <script>
-    addItemModule.init();
-
-//    http://182.92.4.134/meetingSchduler/edit/?random9961=1&locale=zh-CN&userInEnterprise=true&version=2.13.0.25961&securityKey=9b0efdbb4f4c260e6d8c83489c18f4d815a4079da8c
+    var Contact = $('.terminal-select').terminalSelect({});
 </script>
+<!--<script src="js/contact-dialog.js"></script>-->
+<!--<script>-->
+    <!--addItemModule.init();-->
+
+<!--//    http://182.92.4.134/meetingSchduler/edit/?random9961=1&locale=zh-CN&userInEnterprise=true&version=2.13.0.25961&securityKey=9b0efdbb4f4c260e6d8c83489c18f4d815a4079da8c-->
+<!--</script>-->
 </body>
 </html>
