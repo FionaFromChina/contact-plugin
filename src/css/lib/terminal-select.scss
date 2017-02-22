@@ -13,6 +13,20 @@ $cancel-btn-color:#eee;
   border:1px solid $border-color;
   border-radius: 3px;
 
+  .ts-select-item{
+    display: inline-block;
+    margin-right: 10px;
+    padding: 5px;
+    border: 1px solid #eee;
+  }
+  .ts-icon-more {
+
+    display: inline-block;
+    position: absolute;
+    top: 0;
+    right: 0;
+
+  }
   .ts-btn{
     height: 32px;
     display: inline-block;
@@ -36,6 +50,7 @@ $cancel-btn-color:#eee;
   .ts-choose-list {
     margin: 20px 0 ;
     .ts-add-input-box{
+      position: relative;
       display: inline-block;
       width: 90%;
       input{

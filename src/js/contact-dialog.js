@@ -48,6 +48,7 @@ var initData = [{
     }]
 }];
 
+var initData = [];
 
 var addItemModule= function(){
     //在弹出modal之前,先填充数据,如果使用模板可不调用fillModalData方法

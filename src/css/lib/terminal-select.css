@@ -6,6 +6,16 @@
   overflow: auto;
   border: 1px solid #d1d1d1;
   border-radius: 3px; }
+  .terminal-select .ts-select-item {
+    display: inline-block;
+    margin-right: 10px;
+    padding: 5px;
+    border: 1px solid #eee; }
+  .terminal-select .ts-icon-more {
+    display: inline-block;
+    position: absolute;
+    top: 0;
+    right: 0; }
   .terminal-select .ts-btn {
     height: 32px;
     display: inline-block;
@@ -25,6 +35,7 @@
   .terminal-select .ts-choose-list {
     margin: 20px 0; }
     .terminal-select .ts-choose-list .ts-add-input-box {
+      position: relative;
       display: inline-block;
       width: 90%; }
       .terminal-select .ts-choose-list .ts-add-input-box input {
