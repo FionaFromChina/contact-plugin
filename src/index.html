@@ -10,77 +10,114 @@
 </head>
 <body>
 <div class="terminal-select"></div>
-
-
-<!-- Modal -->
-<div class="modal fade" id="addItemModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title" id="myModalLabel">添加组员</h4>
-            </div>
-            <div class="model-search">
-                <div class="input-group btn-search">
-                    <input type="text" class="form-control search-input" id="searchText" placeholder="搜索">
-                        <span class="input-group-btn">
-                            <a class="btn btn-default search-btn"  id="searchItem">
-                                <span class="glyphicon glyphicon-search"></span>
-                            </a>
-                        </span>
-                </div>
-                <div class="choose-bar">
-                    <input type="checkbox" id="checkAll">
-                    <label for="checkAll">全选</label>
-                </div>
-            </div>
-            <div class="modal-body" id="addItemBody">
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-                <button type="button" class="btn btn-primary" id="addItem">确定</button>
-            </div>
-        </div>
-    </div>
-</div>
-
 <script src="js/libs/jquery.js"></script>
 <script src="js/libs/modal.js"></script>
 <script src="js/jquery.getcontact.js"></script>
 <script>
-    $('.terminal-select').terminalSelect({
+
+    var options = {
         initData:[{
             id:"1",
             displayName:"aa",
             avatar:"imgsrc",
             type:"2"
-        },{
-            id:"2",
-            displayName:"bbb",
-            avatar:"imgsrc",
-            type:"2"
         }],
-        contactUrl:"initData.json",
+        contactUrl:"",//获取contact列表的URL
+        inputName:"",//生成的inputDom的name属性值
         callback:{
-            beforeAddedFromInput: function(inputVal) {
-//                alert('添加的有问题!值是'+ inputVal + '不加了~~~');
+            beforeDelete: function(item){
+                //return false; 终端删除
+                //这里可以做一些错误处理,比如某些item是不允许删除的,或者加是否确定要删除的confirm dialog等.
+
+            },
+            beforeAddedFromInput: function(inputValue){
+
                 return{
-                    id:"789",
-                    displayName:"asdjfkf",
-                    avatar:"imgsrc",
-                    type:"2"
-                }
+                    "type":"2",
+                    "number": "736827",
+                    "avatar": "http://devavatar.ainemo.com/nemo/avatar/115488-07da5995-9592-4db5-a015-e90c77f14036-1483497017859",
+                    "name": "kelei的小鱼",
+                    "id": "115423"
+                };
+                //return {}; 不添加
+
             },
-            beforeDelete : function(id) {
-                alert('不能删除!!哼哼');
-              return false;
+            onSelect: function(items){
+                //items,被选中的items
+
             },
-            onSelect : function(items) {
-                console.log('选中的items');
-                console.log(items);
+            onfetchedUrlCalled : function(data){
+                //data 结构:
+                var data = [{
+                    "title":"小鱼企业",
+                    "lists":[{
+                        "type":"2",
+                        "number": "736827",
+                        "avatar": "http://devavatar.ainemo.com/nemo/avatar/115488-07da5995-9592-4db5-a015-e90c77f14036-1483497017859",
+                        "name": "kelei的小鱼",
+                        "id": "115423"
+                    },{
+                        "type":"2",
+                        "number": "736827",
+                        "avatar": "http://devavatar.ainemo.com/nemo/avatar/115488-07da5995-9592-4db5-a015-e90c77f14036-1483497017859",
+                        "name": "kelei的小鱼",
+                        "id": "11541"
+                    }]
+                },{
+                    "title":"分组2",
+                    "lists":[{
+                        "type":"2",
+                        "number": "736827",
+                        "avatar": "http://devavatar.ainemo.com/nemo/avatar/115488-07da5995-9592-4db5-a015-e90c77f14036-1483497017859",
+                        "name": "kelei的小鱼",
+                        "id": "115488"
+                    }]
+                }];
+                var errorMsg = "获取错误";
+                return data; //正确情况下返回
+                //return errorMsg = "获取错误"; 错误情况下返回
             }
         }
+    };
+
+
+    $('.terminal-select').terminalSelect({
+//        initData:[{
+//            id:"1",
+//            displayName:"aa",
+//            avatar:"imgsrc",
+//            type:"2"
+//        },{
+//            id:"2",
+//            displayName:"bbb",
+//            avatar:"imgsrc",
+//            type:"2"
+//        }],
+        contactUrl:"initData.json",
+        callback:{
+//            beforeAddedFromInput: function(inputVal) {
+////                alert('添加的有问题!值是'+ inputVal + '不加了~~~');
+//                return{
+//                    id:"789",
+//                    displayName:"asdjfkf",
+//                    avatar:"imgsrc",
+//                    type:"2"
+//                }
+//            },
+//            beforeDelete : function(id) {
+//                alert('不能删除!!哼哼');
+//              return false;
+//            },
+//            onSelect : function(items) {
+//
+//            }
+//            onfetchedUrlCalled :function(data) {
+//
+//            }
+        }
     });
-//    console.log($('.terminal-select').terminalSelect('getSelected'));
+    console.log($('.terminal-select').terminalSelect('getSelected'));
+
 
 </script>
 </body>

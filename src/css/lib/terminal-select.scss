@@ -2,6 +2,7 @@ $border-color:#d1d1d1;
 $font-size:14px;
 $primary-color:#53bbff;
 $cancel-btn-color:#eee;
+$icon-add-bg:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAMAAADXqc3KAAAAP1BMVEUAAAC8vLy8vLy8vLy8vLy8vLy8vLy8vLy8vLy8vLy8vLy8vLy8vLy8vLy8vLy8vLy8vLy8vLy8vLy8vLy8vLyjZkQfAAAAFHRSTlMAeB4H4hAk6tSzrGtTpPPKr2pbpcK4NMQAAACfSURBVCjPhZHrEgMRDIVJgrjtrd7/WStTrbJjNj+OON8gEvUU5vRUNvanGWzULlyAxl7Baew+8GG/uT0Yfj7p/+OaGsG9+gPZ8bOGZpTSkqBFjYMZgJPa4kvNQOVYxac7SL4KwR0AyRZFeghFkc0sANvFVcvHY16Uu/rguiUKeW4iYxvB3PY+HA49DwzDaHMCREh5GK3UFj2VQj4a9RBvxYoHX+5fhGUAAAAASUVORK5CYII=) 0 0 no-repeat;
 
 
 .terminal-select {
@@ -20,12 +21,13 @@ $cancel-btn-color:#eee;
     border: 1px solid #eee;
   }
   .ts-icon-more {
-
-    display: inline-block;
     position: absolute;
-    top: 0;
-    right: 0;
-
+    display: inline-block;
+    right: 8px;
+    top: 4px;
+    width: 24px;
+    height: 24px;
+    background: $icon-add-bg;
   }
   .ts-btn{
     height: 32px;
@@ -54,18 +56,13 @@ $cancel-btn-color:#eee;
       display: inline-block;
       width: 90%;
       input{
-        box-sizing: border-box;
+
         width: 100%;
-        height: 32px;
         padding: 0 5px;
-        border:1px solid $border-color;
-        border-radius: 3px;
-        line-height: 2;
         font-size: $font-size;
         &:focus{
           outline: none;
         }
-
       }
     }
     .ts-btn-confirm{

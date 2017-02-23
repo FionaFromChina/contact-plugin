@@ -1,8 +1,21 @@
 //common
+$primary-color:#53bbff;
 * {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-  font-family: 'Microsoft YaHei', '微软雅黑', 'Helvetica Neue', 'Helvetica', 'Arial', 'tahoma', sans-serif;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Microsoft YaHei', '微软雅黑', 'Helvetica Neue', 'Helvetica', 'Arial', 'tahoma', sans-serif;
+}
+
+input{
+    height: 30px;
+    box-sizing: border-box;
+    padding: 0 5px;
+    line-height: 30px;
+    border-radius: 2px;
+    border: 1px solid #d1d1d1;
+    &:focus{
+      border:1px solid $primary-color;
+    }
 }
 
