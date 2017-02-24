@@ -13,17 +13,17 @@
                 contactUrl:"",
                 inputName:"terminals",
                 callback:{
-                    beforeDelete: function(item){
-                        //return false; 终端删除
-                    },
+                    //beforeDelete: function(item){
+                    //    //return false; 终端删除
+                    //},
                     beforeAddedFromInput: function(inputValue){
                         //return false; 不执行添加到下面框的事件
                         return {};
                     },
-                    onSelect: function(items){
-                        //items,被选中的items
-
-                    },
+                    //onSelect: function(items){
+                    //    //items,被选中的items
+                    //
+                    //},
                     onfetchedUrlCalled : function(data){
                         return data;
                     }
@@ -71,12 +71,10 @@
                 //PART2: contact dialog dom and event;
                 //2.1  create dialog fragment
                 if($('#addItemModal').length === 0 ){
-                    var $addItemModal = $('<div class="modal fade" id="addItemModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"> <div class="modal-dialog"> <div class="modal-content"> <div class="modal-header"> <h4 class="modal-title" id="myModalLabel">添加组员</h4> </div> <div class="model-search"> <div class="input-group btn-search"> <input type="text" class="form-control search-input" id="searchText" placeholder="搜索"> <span class="input-group-btn"> <a class="btn btn-default search-btn"  id="searchItem"> <span class="glyphicon glyphicon-search"></span> </a> </span> </div> <div class="choose-bar"> <input type="checkbox" id="checkAll"> <label for="checkAll">全选</label> </div> </div> <div class="modal-body" id="addItemBody"> </div> <div class="modal-footer"> <button type="button" class="btn btn-default" data-dismiss="modal">取消</button> <button type="button" class="btn btn-primary" id="addItem">确定</button> </div> </div> </div> </div>');
+                    var $addItemModal = $('<div class="nemo-mask-new hide" id="addItemModal"><div class="inv-add-dialog" > <div class="dialog-bar"> <span class="dialog-title">从企业通讯录邀请</span> <span class="close-btn" >×</span> </div> <div class="content" > <div class="input-search" > <input class="ts-input"> <div class="icon-search" id="searchItem"></div> </div> <div class="choose"> <div class="choose-all choose-all-checked">全选</div> </div> <div class="add-list"> </div> </div> <div class="btn-area inv-search-btn-area" > <a class="btn btn-cancel" >取消</a> <a class="btn btn-default" >确定</a> </div> </div> </div>');
                     $addItemModal.appendTo('body');
                 }
 
-                //2.2. modal-dialog init
-                AddItemModule.init();
             });
         },
 
@@ -111,7 +109,13 @@
                     }
                 }
                 TerminalSelect.deleteListItem(id);
-            })
+            });
+
+            //more event
+            $('.terminal-select').on('click','.ts-icon-more',function(e) {
+                AddItemModule.init.call(AddItemModule);
+                e.preventDefault();
+            });
         },
 
 
@@ -190,12 +194,14 @@
 
         //在弹出modal之前,先填充数据,如果使用模板可不调用fillModalData方法
         init : function(){
+            this.clearData(); //todo 这里每次都需要清除吗?是否可以优化?
+            this.fetchData();
+            this.eventInit();
+            this.showDialog();
+        },
 
-            $('#addItemModal').on('show.bs.modal',function(){
-                AddItemModule.clearData();
-                AddItemModule.fetchData();
-                AddItemModule.eventInit();
-            })
+        showDialog :function() {
+          $('#addItemModal').show();
         },
 
         fetchData : function() {
@@ -208,15 +214,16 @@
                             var resultData = data;
 
                             if(TerminalSelect.settings.callback.onfetchedUrlCalled) {
+                                // FIXME onfetchedUrlCalled会被调用两次,有问题
                                 resultData = TerminalSelect.settings.callback.onfetchedUrlCalled(data) ? TerminalSelect.settings.callback.onfetchedUrlCalled(data) :resultData;
                             }
 
 
-                            if(resultData == undefined) {
+                            if(resultData === undefined) {
                                 return;
                             }
 
-                            if(typeof(resultData) === "string" || $.isArray(resultData) === true){
+                            if(typeof(resultData) === "string" || typeof(resultData) === "object"){
                                 AddItemModule.contactData = {
                                     isFetched:true,
                                     data:resultData
@@ -251,14 +258,18 @@
         },
 
         clearData : function(){
-            $('#addItemBody').empty();
+
+            $('#addItemModal .add-list').empty();
         },
 
         fillModalData : function(initData){
 
             //error scene : data is a string
-            if(typeof (initData) === "string") {//
-                $('#addItemBody').append($('<p>' +
+            if(typeof (initData) === "string") {
+
+                $('#addItemModal .content').empty();
+
+                $('#addItemModal .content').append($('<p class="error-info">' +
                     initData + '</p>'));
                 return;
             }
@@ -266,6 +277,7 @@
             //success scene : data is an array.
 
             //todo 这里是否要进行容错?比如有些返回数据是nemoNumber,有些是number或者phone字段等等?
+            //todo 修改html后,这里的渲染逻辑要发生改变
 
             var modalLists=$('<ul>',{"class":"modal-lists"}),
                 leni=initData.length;
@@ -315,7 +327,7 @@
                 itemGroup.append(groupTitle).append(groupLists);
                 itemGroup.appendTo(modalLists);
             }
-            $('#addItemBody').append(modalLists);
+            $('#addItemDialog .add-list').append(modalLists);
         },
         //事件注册
         eventInit : function(){

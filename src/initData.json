@@ -1,25 +1,58 @@
-[{
-  "title":"小鱼企业",
-  "lists":[{
-    "type":"2",
-    "number": "736827",
-    "avatar": "http://devavatar.ainemo.com/nemo/avatar/115488-07da5995-9592-4db5-a015-e90c77f14036-1483497017859",
-    "name": "kelei的小鱼",
-    "id": "115423"
-  },{
-    "type":"2",
-    "number": "736827",
-    "avatar": "http://devavatar.ainemo.com/nemo/avatar/115488-07da5995-9592-4db5-a015-e90c77f14036-1483497017859",
-    "name": "kelei的小鱼",
-    "id": "11541"
-  }]
-},{
-  "title":"分组2",
-  "lists":[{
-    "type":"2",
-    "number": "736827",
-    "avatar": "http://devavatar.ainemo.com/nemo/avatar/115488-07da5995-9592-4db5-a015-e90c77f14036-1483497017859",
-    "name": "kelei的小鱼",
-    "id": "115488"
-  }]
-}]
+{
+  "users": [
+    {
+      "phone": "18810681750",
+      "avatar": "http://devavatar.ainemo.com/userprofile/picture/111152-bc3cc04c-adad-43a1-8996-42bc16f4208e-1473150767273?k=111152-bc3cc04c-adad-43a1-8996-42bc16f4208e-1473150767273",
+      "name": "suhongyue",
+      "id": 111502
+    },
+    {
+      "phone": "13437255763",
+      "avatar": "http://devavatar.ainemo.com/userprofile/picture/1754-7f5ef9e9-84f2-4f38-bf6d-baaf58b59308-1448354853831?k=1754-7f5ef9e9-84f2-4f38-bf6d-baaf58b59308-1448354853831",
+      "name": "Feilong",
+      "id": 2043
+    }
+  ],
+  "nemos": [
+    {
+      "nemoNumber": "679520",
+      "avatar": "http://devavatar.ainemo.com/nemo/avatar/122596-87a78055-6571-4ab9-bafe-3709fb41f438-1487234169629?k=122596-87a78055-6571-4ab9-bafe-3709fb41f438-1487234169629",
+      "name": "小鱼1024",
+      "id": "122596"
+    },
+    {
+      "nemoNumber": "641732",
+      "avatar": "",
+      "name": "毛利兰的小鱼",
+      "id": "100109540"
+    },
+    {
+      "nemoNumber": "702570",
+      "avatar": "http://devavatar.ainemo.com/nemo/avatar/100110331-3fec0b5a-0535-46d3-b917-99cb4dfde021-1487234232274?k=100110331-3fec0b5a-0535-46d3-b917-99cb4dfde021-1487234232274",
+      "name": "龙一的小鱼",
+      "id": "100110331"
+    },
+    {
+      "nemoNumber": "930862",
+      "avatar": "http://devavatar.ainemo.com/nemo/avatar/100110266-88b40e45-fdc0-4299-ab1d-d66cf492a111-1487226360388?k=100110266-88b40e45-fdc0-4299-ab1d-d66cf492a111-1487226360388",
+      "name": "毛利兰的小鱼",
+      "id": "100110266"
+    },
+    {
+      "nemoNumber": "843631",
+      "avatar": null,
+      "name": "suhongyue1的小鱼",
+      "id": "100110158"
+    }
+  ],
+  "bruces": [],
+  "boxes": [
+    {
+      "nemoNumber": "20152769",
+      "avatar": null,
+      "name": "视频通话终端suhongyue",
+      "id": "100102816"
+    }
+  ],
+  "h323s": []
+}

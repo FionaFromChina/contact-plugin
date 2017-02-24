@@ -6,13 +6,15 @@
   font-family: 'Microsoft YaHei', '微软雅黑', 'Helvetica Neue', 'Helvetica', 'Arial', 'tahoma', sans-serif; }
 
 input {
-  height: 30px;
+  font-size: 14px;
+  height: 32px;
   box-sizing: border-box;
   padding: 0 5px;
   line-height: 30px;
   border-radius: 2px;
   border: 1px solid #d1d1d1; }
   input:focus {
-    border: 1px solid #53bbff; }
+    border: 1px solid #53bbff !important;
+    outline: none; }
 
 /*# sourceMappingURL=common.css.map */
