@@ -4,8 +4,6 @@
 
     var TerminalSelect = {
 
-        settings:{},
-
         init : function(options) {
 
             var defaults = {
@@ -33,29 +31,35 @@
 
             var settings = $.extend({},defaults, options);
 
-            TerminalSelect.settings = settings;
 
             return $(this).each (function(){
 
                 $(this).empty();
 
-                //Part1: terminal select Dom and event;
+                //Part1: select Dom and event;
                 //1.1. create Dom fragment;
 
                 //1.1.1 terminal Dom
-                var $terminalSubDom = $('<div class="ts-choose-list"><div class="ts-add-input-box"><input class="ts-input" id="tsAddInput" type="text" placeholder="这里是placeholder" /> <div class="ts-icon-more" data-toggle="modal" data-target="#addItemModal"></div> </div> <button class="ts-btn ts-btn-primary ts-btn-confirm">确定</button> </div>');
+                var $terminalSubDom = $('<div class="ts-choose-list"><div class="ts-add-input-box"><input class="ts-search-input" id="tsAddInput" type="text" placeholder="这里是placeholder" /> <div class="ts-icon-more"></div> </div> <button class="ts-btn ts-btn-primary ts-btn-confirm">确定</button> </div>');
 
 
                 //1.1.2 list data
                 var $terminalList = $('<div class="ts-select-list"></div>');
 
-                if(settings.initData.length > 0 ){ //初始化数据
 
-                    for(var i = 0 ; i< settings.initData.length ; i ++ ) {
+                //store data
+                $(this).data({"settings":settings,"selectedData":[]});
+
+
+                if(settings.initData.length > 0) { //初始化数据
+
+                    for(var i = 0 ; i < settings.initData.length ; i ++ ) {
 
                         var item = settings.initData[i];
 
-                        TerminalSelect.addListItem(item,$terminalList);
+                        //TerminalSelect.addListItem.call(this,item,$terminalList);
+
+                        TerminalSelect.addListItem(item,$terminalList,$(this));
 
                     }
                 }
@@ -63,27 +67,35 @@
                 $(this).append($terminalSubDom).append($terminalList);
 
 
-                //1.2 eventBind
-                //==============================
-                TerminalSelect.eventBind(settings);
-
 
                 //PART2: contact dialog dom and event;
-                //2.1  create dialog fragment
-                if($('#addItemModal').length === 0 ){
-                    var $addItemModal = $('<div class="nemo-mask-new hide" id="addItemModal"><div class="inv-add-dialog" > <div class="dialog-bar"> <span class="dialog-title">从企业通讯录邀请</span> <span class="close-btn" >×</span> </div> <div class="content" > <div class="input-search" > <input class="ts-input"> <div class="icon-search" id="searchItem"></div> </div> <div class="choose"> <div class="choose-all choose-all-checked">全选</div> </div> <div class="add-list"> </div> </div> <div class="btn-area inv-search-btn-area" > <a class="btn btn-cancel" >取消</a> <a class="btn btn-default" >确定</a> </div> </div> </div>');
-                    $addItemModal.appendTo('body');
-                }
+                //2.1  create dialog fragment 每个select都有自己的对话框
+
+                var $addItemModal = $('<div class="nemo-mask-new hide add-item-modal"><div class="inv-add-dialog" > <div class="dialog-bar"> <span class="dialog-title">从企业通讯录邀请</span> <span class="close-btn" >×</span> </div> <div class="content" > <div class="input-search" > <input class="ts-input"> <div class="icon-search" id="searchItem"></div> </div> <div class="choose"> <div class="choose-all choose-all-checked">全选</div> </div> <div class="add-list"> </div> </div> <div class="btn-area inv-search-btn-area" > <a class="btn btn-cancel" >取消</a> <a class="btn btn-default" >确定</a> </div> </div> </div>');
+                $addItemModal.data('srcEle',$(this));
+
+                $addItemModal.appendTo('body');
+
+
+                //1.2 eventBind
+                //==============================
+                TerminalSelect.eventBind.call($(this),$addItemModal);
 
             });
         },
 
-        eventBind : function(settings) {
+        eventBind : function($dialog) {
+
+            var settings = $(this).data('settings');
+
             //confirm event;
 
-            $('.ts-btn-confirm').on('click',function(e) {
+            $(this).on('click','.ts-btn-confirm',function(e) {
 
-                var inputVal = $('#tsAddInput').val(),result;
+                var inputVal = $(e.target).siblings('.ts-add-input-box').children('#tsAddInput').val(),
+                    $src = $(e.target).parents('.terminal-select'),
+                    settings = $src.data('settings'),
+                    result;
 
                 if(settings.callback.beforeAddedFromInput) {
 
@@ -92,47 +104,52 @@
 
                 if(typeof(result) === "object" && (!$.isEmptyObject(result))) {
 
-                    TerminalSelect.addListItem(result);
+                    TerminalSelect.addListItem(result,null,$src);
                 }
-
-                e.preventDefault();
 
             });
 
             //delete event
-            $('.terminal-select').on('click','.ts-list-item-delete',function(e) {
-                var id = $(e.target).parent().attr('data-id');
+            $(this).on('click','.ts-list-item-delete',function(e) {
+                var id = $(e.target).parent().attr('data-id'),
+                    $src = $(e.target).parents('.terminal-select'),
+                    settings = $src.data('settings');
+
                 if(settings.callback.beforeDelete) {
                     var result =  settings.callback.beforeDelete(id);
                     if(result === false) {
                          return false;
                     }
                 }
-                TerminalSelect.deleteListItem(id);
+
+                TerminalSelect.deleteListItem(id,$src);
             });
 
             //more event
-            $('.terminal-select').on('click','.ts-icon-more',function(e) {
-                AddItemModule.init.call(AddItemModule);
+            $(this).on('click','.ts-icon-more',function(e) {
+
+                AddItemModule.init.call(AddItemModule,$(this).parents('.terminal-select'),$dialog);
                 e.preventDefault();
             });
         },
 
 
-        addListItem : function(item,$parent) {
+        addListItem : function(item,$parent,$this) {
+
+            var selectedData = $this.data('selectedData');
 
             // 去重
-            for(var i = 0 ;i < TerminalSelect.selectedData.length ; i ++ ) {
-                if(TerminalSelect.selectedData[i].id === item.id) {
+            for(var i = 0 ;i < selectedData.length ; i ++ ) {
+                if(selectedData[i].id === item.id) {
                     return ;
                 }
             }
 
             //data
-            TerminalSelect.selectedData.push(item);
+            selectedData.push(item);
 
             //view
-            var $parent = $parent ? $parent : $('.ts-select-list');
+            var $parent = $parent ? $parent : $('.ts-select-list',$this);
 
 
             $parent.append( $('<div>',{
@@ -143,16 +160,18 @@
 
         },
 
-        deleteListItem : function(id) {
+        deleteListItem : function(id,$src) {
 
-            for(var i = 0 ;i < TerminalSelect.selectedData.length; i++) {
-              if(TerminalSelect.selectedData[i].id == id) {
-                  TerminalSelect.selectedData.splice(i,1);
+            var obj = $src.data();
+
+            for(var i = 0 ;i < obj.selectedData.length; i++) {
+              if(obj.selectedData[i].id == id) {
+                  obj.selectedData.splice(i,1);
               }
             }
 
             //delete dom
-            $('.ts-select-item').filter('[data-id='  + id +']').remove();
+            $('.ts-select-item',$src).filter('[data-id='  + id +']').remove();
 
         },
 
@@ -187,13 +206,18 @@
 
     var AddItemModule = {
 
-        contactData :{
-            isFetched:false,
-            data:{}
-        },
-
         //在弹出modal之前,先填充数据,如果使用模板可不调用fillModalData方法
-        init : function(){
+        init : function($srcEle,$this) {
+
+            this.src = $srcEle;
+            this.elem = $this;
+
+            $(this.elem).data({
+                isFetched:false,
+                data:{},
+                parentNode:$srcEle
+            });
+
             this.clearData(); //todo 这里每次都需要清除吗?是否可以优化?
             this.fetchData();
             this.eventInit();
@@ -201,44 +225,52 @@
         },
 
         showDialog :function() {
-          $('#addItemModal').show();
+            $(this.elem).show();
         },
 
         fetchData : function() {
-            var contactData = AddItemModule.contactData;
+
+            var $this = $(this.elem),
+                contactData = $(this.elem).data(),
+                settings = $(this.src).data('settings');
+
             if(contactData.isFetched === false) {
-                if($.trim(TerminalSelect.settings.contactUrl) !== "") {
+                if($.trim(settings.contactUrl) !== "") {
                     try{
-                        $.getJSON(TerminalSelect.settings.contactUrl,function(data) {
+                        $.getJSON(settings.contactUrl,function(data) {
 
                             var resultData = data;
 
-                            if(TerminalSelect.settings.callback.onfetchedUrlCalled) {
-                                // FIXME onfetchedUrlCalled会被调用两次,有问题
-                                resultData = TerminalSelect.settings.callback.onfetchedUrlCalled(data) ? TerminalSelect.settings.callback.onfetchedUrlCalled(data) :resultData;
+                            if(settings.callback.onfetchedUrlCalled) {
+                                var callData = settings.callback.onfetchedUrlCalled(data);
+                                if(callData) {
+                                    resultData = callData;
+                                }
                             }
-
 
                             if(resultData === undefined) {
                                 return;
                             }
 
                             if(typeof(resultData) === "string" || typeof(resultData) === "object"){
-                                AddItemModule.contactData = {
+                                $.extend($this.data(),{
                                     isFetched:true,
                                     data:resultData
-                                };
+                                });
+
                             }else { //传入的数据不对
                                 if(window.console) {
                                     console.log('传入或则返回的数据格式有误,请检查,只接受字符串或者数组类型的数据');
                                 }
-                                AddItemModule.contactData = {
+
+                                $.extend($this.data(),{
                                     isFetched:true,
-                                    data:"未能获取到数据"
-                                };
+                                    data:"未能取到数据"
+                                });
                             }
 
-                            AddItemModule.fillModalData(AddItemModule.contactData.data);
+
+                            AddItemModule.fillModalData($this.data('data'),$this);
 
                         }).fail(function(e) {
                             if(window.console) {
@@ -258,18 +290,17 @@
         },
 
         clearData : function(){
-
-            $('#addItemModal .add-list').empty();
+            $('.add-list',this.elem).empty();
         },
 
-        fillModalData : function(initData){
+        fillModalData : function(initData,$root){
 
             //error scene : data is a string
             if(typeof (initData) === "string") {
 
-                $('#addItemModal .content').empty();
+                $('.content',$root).empty();
 
-                $('#addItemModal .content').append($('<p class="error-info">' +
+                $('.content',$root).append($('<p class="error-info">' +
                     initData + '</p>'));
                 return;
             }
@@ -279,82 +310,107 @@
             //todo 这里是否要进行容错?比如有些返回数据是nemoNumber,有些是number或者phone字段等等?
             //todo 修改html后,这里的渲染逻辑要发生改变
 
-            var modalLists=$('<ul>',{"class":"modal-lists"}),
-                leni=initData.length;
 
-            for(var i=0;i<leni;i++){
-                var itemGroup = $('<li>',{
-                    "class":"item-group"
-                });
-                var groupTitle = $('<div>',{
-                    "class":"group-title",
-                    html:'<input type="checkbox" ' +
-                    'id="' +'group'+i + '" ' +
-                    'class="groupCheckAll" />' +
-                    '<label for="group'+i+'">'+ initData[i].title+'</label>'
-                });
-                var groupLists = $("<div>",{"class":"group-lists"}),
-                    sul = $("<ul>"),
-                    lenj = initData[i]["lists"].length;
+            var groupsMatch = {"nemos":"企业小鱼","users":"企业用户","bruces":"bruces","boxes":"boxes","h323s":"h323s"};
 
-                sul.appendTo(groupLists);
+            var $groupList = $('<div>');
 
-                for(var j =0;j<lenj;j++){
-                    var obj = initData[i]["lists"][j];
-                    var labelId = "g"+[i]+"item"+[j];
-                    $('<li>').append(
-                        $('<input>',{
-                            type:"checkbox",
-                            id:labelId,
-                            "class":"item-checkbox"
-                        })).append(
-                        $('<label>',{
-                            "for":labelId,
-                            "data-id":obj.id,
-                            "data-type":obj.type,
-                            "data-displayName":obj.name,
-                            "data-avatar":obj.avatar,
-                            "data-number":obj.number,
-                            html:'<img class="item-img img-circle" src="' +obj.avatar+ '">' +
-                            '<div class="item-detail">' +
-                            '<span class="item-name">' +obj.name+ '</span>' +
-                            '<br/>' +
-                            '<span class="item-phone">'+obj.number+'</span>' +
-                            '</div>'
-                        })
-                    ).appendTo(sul);
+            for(var key in groupsMatch) {
+
+                if(initData[key].length > 0) {
+
+                    var $itemGroup = $('<div>',{"class":"item-group"}),
+                        $groupTitle = $('<div>',{
+                        "class":"group-title",
+                        html:'<label class="checkbox-uncheck">' + groupsMatch[key] + '</label>'
+                    });
+
+                    $itemGroup.append($groupTitle);
+
+                    for(var i = 0 ; i < initData[key].length ; i++) {
+
+                        var item  = initData[key][i];
+
+                        //FIXME according to @jiajia, 接口规则:如果是人的话,返回id,name,phone,avatar,如果是硬件的话,返回id,name,nemoNumber,avatar
+
+                        var number = item.phone ? item.phone : item.nemoNumber,
+                            imgSrc = item.avatar ? item.avatar :"//devcdn.ainemo.com/page/images/noicon.png";
+
+                        var $contactItem = $('<div>',{
+                            "class":"meeting-contact-item",
+                            "data-id":item.id,
+                            "data-name":item.name,
+                            "data-avatar":item.avatar,
+                            "data-number":number
+                        }),
+                            $img = $('<img src= "' + imgSrc +
+                            '" class="item-img">'),
+                            $itemDetail = $('<div>',{
+                                "class":"item-detail",
+                                "html":'<label class="item-name">' + item.name +
+                                '</label><br><label class="item-phone">' + number +
+                                '</label>'
+                            });
+
+                        $contactItem.append($img).append($itemDetail).appendTo($itemGroup);
+
+                    }
+
+                    $groupList.append($itemGroup);
+
                 }
-                itemGroup.append(groupTitle).append(groupLists);
-                itemGroup.appendTo(modalLists);
             }
-            $('#addItemDialog .add-list').append(modalLists);
+            $('.add-list',$root).append($groupList);
         },
+
         //事件注册
         eventInit : function(){
+
+            var $this = $(this.elem);
+
             //1. 搜索
-            $('#searchItem').off().on('click',function(e){
+            $this.off().on('click','#searchItem',function(e) {
 
                 e.preventDefault();
 
-                var text = $.trim($('#searchText').val());
+                var text = $.trim($('.ts-input',$this).val());
 
                 $('.item-detail').filter(function(){
 
                     var name = $(this).children('.item-name');
                     var phone = $(this).children('.item-phone');
+
                     if(name.html().indexOf(text) > -1 || phone.html().indexOf(text) > -1){
-                        $(this).closest('li').show();
+                        $(this).closest('.meeting-contact-item').show();
                     }else{
-                        $(this).closest('li').hide();
+                        $(this).closest('.meeting-contact-item').hide();
                     }
                 });
+
             });
-            $('#searchText').keypress(function(e){
+
+            $('.ts-input',$this).keypress(function(e){
+
                 if(e.which==13){
                     $('#searchItem').click();
                 }
             });
+
+
             //2. 全选/全部取消
+            $this.off().on('click','.choose',function(e) {
+                if($('.choose-all-checked',$this).length > 0 ) {
+                    //取消全选
+                    $('.choose-all-checked',$this).className = "choose-all choose-all-unchecked";
+
+
+                }else{
+                    $('.choose-all-checked',$this).className = "choose-all choose-all-checked";
+
+
+                }
+            });
+
             $('#checkAll').click(function(){//全选和全部取消都得是能看见的
                 if($(this).is(':checked')){//全选
                     $('#addItemModal input[type=checkbox]').filter(':visible').prop('checked','checked');
@@ -362,15 +418,17 @@
                     $('#addItemModal input[type=checkbox]').prop('checked',false);
                 }
             });
-            //4. 分组选中
-            $('.groupCheckAll').click(function(e){
-                if($(this).is(':checked')){
-                    $(this).parent().siblings('.group-lists').find(':checkbox').filter(':visible').prop('checked','checked');
-                }else{
-                    $(this).parent().siblings('.group-lists').find(':checkbox').prop('checked',false);
-                }
-                e.stopPropagation();
-            });
+
+
+            ////4. 分组选中
+            //$('.groupCheckAll').click(function(e){
+            //    if($(this).is(':checked')){
+            //        $(this).parent().siblings('.group-lists').find(':checkbox').filter(':visible').prop('checked','checked');
+            //    }else{
+            //        $(this).parent().siblings('.group-lists').find(':checkbox').prop('checked',false);
+            //    }
+            //    e.stopPropagation();
+            //});
             //5. 确定
             $('#addItem').off().on('click',function(){
                 var results=[];
@@ -390,17 +448,17 @@
 
             });
 
-            //6. 分组栏收缩
-            $('.group-title').click(function(e){
-                if($(e.target).hasClass('group-title')){
-                    var lists = $(this).siblings('.group-lists');
-                    if(lists.is(':visible')){
-                        lists.slideUp();
-                    }else{
-                        lists.slideDown();
-                    }
-                }
-            });
+            ////6. 分组栏收缩
+            //$('.group-title').click(function(e){
+            //    if($(e.target).hasClass('group-title')){
+            //        var lists = $(this).siblings('.group-lists');
+            //        if(lists.is(':visible')){
+            //            lists.slideUp();
+            //        }else{
+            //            lists.slideDown();
+            //        }
+            //    }
+            //});
 
 
             function collectData(attrList,$item) { //["id","name","type","number","avatar"]
@@ -423,6 +481,5 @@
             $.error( ' method  '+method+' is not exist.' );
         }
     };
-
 
 })(jQuery);

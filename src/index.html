@@ -229,36 +229,35 @@
                     }]
                 }];
                 var errorMsg = "获取错误";
-                return data; //正确情况下返回
-                //return errorMsg = "获取错误"; 错误情况下返回
+//                return data; //正确情况下返回
+                return errorMsg;//"获取错误"; //错误情况下返回
             }
         }
     };
 
-
     $('.terminal-select').terminalSelect({
-//        initData:[{
-//            id:"1",
-//            displayName:"aa",
-//            avatar:"imgsrc",
-//            type:"2"
-//        },{
-//            id:"2",
-//            displayName:"bbb",
-//            avatar:"imgsrc",
-//            type:"2"
-//        }],
+        initData:[{
+            id:"1",
+            displayName:"aa",
+            avatar:"imgsrc",
+            type:"2"
+        },{
+            id:"2",
+            displayName:"bbb",
+            avatar:"imgsrc",
+            type:"2"
+        }],
         contactUrl:"initData.json",
         callback:{
-//            beforeAddedFromInput: function(inputVal) {
-////                alert('添加的有问题!值是'+ inputVal + '不加了~~~');
-//                return{
-//                    id:"789",
-//                    displayName:"asdjfkf",
-//                    avatar:"imgsrc",
-//                    type:"2"
-//                }
-//            },
+            beforeAddedFromInput: function(inputVal) {
+//                alert('添加的有问题!值是'+ inputVal + '不加了~~~');
+                return{
+                    id:"789",
+                    displayName:"asdjfkf",
+                    avatar:"imgsrc",
+                    type:"2"
+                }
+            }
 //            beforeDelete : function(id) {
 //                alert('不能删除!!哼哼');
 //              return false;
@@ -267,11 +266,12 @@
 //
 //            }
 //            onfetchedUrlCalled :function(data) {
-//
+//                return "error";
 //            }
         }
     });
     console.log($('.terminal-select').terminalSelect('getSelected'));
+
 
 
 </script>
