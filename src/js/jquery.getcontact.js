@@ -71,7 +71,7 @@
                 //PART2: contact dialog dom and event;
                 //2.1  create dialog fragment 每个select都有自己的对话框
 
-                var $addItemModal = $('<div class="nemo-mask-new hide add-item-modal"><div class="inv-add-dialog" > <div class="dialog-bar"> <span class="dialog-title">从企业通讯录邀请</span> <span class="close-btn" >×</span> </div> <div class="content" > <div class="input-search" > <input class="ts-input"> <div class="icon-search" id="searchItem"></div> </div> <div class="choose"> <div class="choose-all choose-all-checked">全选</div> </div> <div class="add-list"> </div> </div> <div class="btn-area inv-search-btn-area" > <a class="btn btn-cancel" >取消</a> <a class="btn btn-default" >确定</a> </div> </div> </div>');
+                var $addItemModal = $('<div class="nemo-mask-new hide add-item-modal"><div class="inv-add-dialog" > <div class="dialog-bar"> <span class="dialog-title">从企业通讯录邀请</span> <span class="close-btn" >×</span> </div> <div class="content" > <div class="input-search" > <input class="ts-input"> <div class="icon-search" id="searchItem"></div> </div> <div class="choose"> <div class="choose-all choose-all-unchecked">全选</div> </div> <div class="add-list"> </div> </div> <div class="btn-area inv-search-btn-area" > <a class="btn btn-cancel" id="btnCancel" >取消</a> <a class="btn btn-default" id="btnConfirm" >确定</a> </div> </div> </div>');
                 $addItemModal.data('srcEle',$(this));
 
                 $addItemModal.appendTo('body');
@@ -79,6 +79,10 @@
 
                 //1.2 eventBind
                 //==============================
+
+                //dialog init
+                AddItemModule.init.call($addItemModal);
+
                 TerminalSelect.eventBind.call($(this),$addItemModal);
 
             });
@@ -128,9 +132,17 @@
             //more event
             $(this).on('click','.ts-icon-more',function(e) {
 
-                AddItemModule.init.call(AddItemModule,$(this).parents('.terminal-select'),$dialog);
+                if($dialog.data('isFetched') === false) {
+                    AddItemModule.clearData.call($dialog);
+                    AddItemModule.fetchData.call($dialog);
+                }
+
+                AddItemModule.showDialog.call($dialog);
+
                 e.preventDefault();
             });
+
+
         },
 
 
@@ -155,7 +167,7 @@
             $parent.append( $('<div>',{
                 'class':"ts-select-item",
                 'data-id':item.id,
-                'html':'<label>' +  item.displayName + '</label><a class="ts-list-item-delete">' + '删除' + '</a>'
+                'html':'<label>' +  item.name + '</label><a class="ts-list-item-delete">' + '删除' + '</a>'
             }));
 
         },
@@ -177,7 +189,7 @@
 
 
         getSelected : function() {
-            return TerminalSelect.selectedData;
+            return $(this).data('selectedData');
         },
 
         createInputDom : function() {//return a input dom with selected id list as value
@@ -207,32 +219,25 @@
     var AddItemModule = {
 
         //在弹出modal之前,先填充数据,如果使用模板可不调用fillModalData方法
-        init : function($srcEle,$this) {
-
-            this.src = $srcEle;
-            this.elem = $this;
-
-            $(this.elem).data({
+        init : function() {
+            //数据初始化
+            $(this).data({
                 isFetched:false,
-                data:{},
-                parentNode:$srcEle
+                data:{}
             });
-
-            this.clearData(); //todo 这里每次都需要清除吗?是否可以优化?
-            this.fetchData();
-            this.eventInit();
-            this.showDialog();
+            //事件注册
+            AddItemModule.eventInit.call($(this)); //只需要初始化一次
         },
 
         showDialog :function() {
-            $(this.elem).show();
+            $(this).show();
         },
 
         fetchData : function() {
 
-            var $this = $(this.elem),
-                contactData = $(this.elem).data(),
-                settings = $(this.src).data('settings');
+            var $this = $(this),
+                contactData = $(this).data(),
+                settings = $(this).data('srcEle').data('settings');
 
             if(contactData.isFetched === false) {
                 if($.trim(settings.contactUrl) !== "") {
@@ -285,12 +290,12 @@
                     }
                 }
             }else {
-                AddItemModule.fillModalData(AddItemModule.contactData.data);
+                AddItemModule.fillModalData(contactData.data,$this);
             }
         },
 
         clearData : function(){
-            $('.add-list',this.elem).empty();
+            $('.add-list',$(this)).empty();
         },
 
         fillModalData : function(initData,$root){
@@ -366,10 +371,10 @@
         //事件注册
         eventInit : function(){
 
-            var $this = $(this.elem);
+            var $this = $(this);
 
             //1. 搜索
-            $this.off().on('click','#searchItem',function(e) {
+            $this.on('click','#searchItem',function(e) {
 
                 e.preventDefault();
 
@@ -392,34 +397,32 @@
             $('.ts-input',$this).keypress(function(e){
 
                 if(e.which==13){
-                    $('#searchItem').click();
+                    $('#searchItem',$this).click();
                 }
             });
 
 
             //2. 全选/全部取消
-            $this.off().on('click','.choose',function(e) {
+            $this.on('click','.choose',function(e) {
                 if($('.choose-all-checked',$this).length > 0 ) {
                     //取消全选
-                    $('.choose-all-checked',$this).className = "choose-all choose-all-unchecked";
-
-
+                    $('.choose-all-checked',$this).attr( 'class', "choose-all choose-all-unchecked");
+                    $('.meeting-contact-item',$this).attr('class','meeting-contact-item');
                 }else{
-                    $('.choose-all-checked',$this).className = "choose-all choose-all-checked";
-
-
+                    $('.choose-all-unchecked',$this).attr('class', "choose-all choose-all-checked");
+                    $('.meeting-contact-item',$this).attr('class', "meeting-contact-item meeting-contact-item-checked");
                 }
             });
 
-            $('#checkAll').click(function(){//全选和全部取消都得是能看见的
-                if($(this).is(':checked')){//全选
-                    $('#addItemModal input[type=checkbox]').filter(':visible').prop('checked','checked');
-                }else{//取消
-                    $('#addItemModal input[type=checkbox]').prop('checked',false);
+            //选中
+            $this.on('click','.meeting-contact-item',function(e) {
+               var $contactItem = $(this).closest('.meeting-contact-item');
+                if($contactItem.hasClass('meeting-contact-item-checked')) {
+                    $contactItem.removeClass('meeting-contact-item-checked');
+                }else{
+                    $contactItem.addClass('meeting-contact-item-checked');
                 }
             });
-
-
             ////4. 分组选中
             //$('.groupCheckAll').click(function(e){
             //    if($(this).is(':checked')){
@@ -429,23 +432,29 @@
             //    }
             //    e.stopPropagation();
             //});
-            //5. 确定
-            $('#addItem').off().on('click',function(){
-                var results=[];
-                var lables= $('.item-checkbox').filter(':checked').siblings('label');
-                $.each(lables,function(index,item){
 
-                    var data = collectData(["id","displayName","type","number","avatar"],$(item));
-                    TerminalSelect.addListItem(data);
+            //5. 确定
+            $this.on('click','#btnConfirm',function(e) {
+
+                var results = [];
+
+                $.each($('.meeting-contact-item-checked',$this),function(index,item) {
+                    var data = collectData(["id","name","number","avatar"],$(item));
+                    TerminalSelect.addListItem(data,null,$this.data('srcEle'));
                     results.push(data);
                 });
 
-                if(TerminalSelect.settings.callback.onSelect) {
-                    TerminalSelect.settings.callback.onSelect(results);
+                var setttings = $this.data('srcEle').data('settings');
+                if(setttings.callback.onSelect) {
+                    setttings.callback.onSelect(results);
                 }
 
-                $('#addItemModal').modal('hide');
+                $this.hide();
+            });
 
+            //取消
+            $this.on('click','.close-btn,#btnCancel',function(e) {
+               $this.hide();
             });
 
             ////6. 分组栏收缩
