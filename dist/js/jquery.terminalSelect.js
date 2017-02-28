@@ -191,7 +191,7 @@
             $parent.append( $('<div>',{
                 'class':"ts-select-item",
                 'data-id':item.id,
-                'html':'<label>' +  item.name + '</label><a class="ts-list-item-delete">' + '删除' + '</a>'
+                'html':'<label>' +  item.name + '</label><a class="ts-list-item-delete">' + '' + '</a>'
             }));
 
 

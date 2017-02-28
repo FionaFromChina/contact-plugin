@@ -164,9 +164,23 @@ input {
   border-radius: 3px; }
   .terminal-select .ts-select-item {
     display: inline-block;
-    margin-right: 10px;
-    padding: 5px;
-    border: 1px solid #eee; }
+    height: 30px;
+    margin: 0 10px 10px 0;
+    padding: 5px 10px 5px 5px;
+    border: 1px solid #eee;
+    border-radius: 15px;
+    line-height: 1;
+    background-color: #efeff4;
+    color: rgba(0, 0, 0, 0.6);
+    color: #666\9; }
+  .terminal-select .ts-list-item-delete {
+    display: inline-block;
+    width: 15px;
+    height: 15px;
+    margin-left: 10px;
+    vertical-align: -2px;
+    cursor: pointer;
+    background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA4AAAAOBAMAAADtZjDiAAAAMFBMVEUAAAByxf1yxf1yxf1yxf1yxf1yxf1yxf1yxf1yxf1yxf3n9f98yv3///9zxf3C5v5WZ4RaAAAACnRSTlMA89IW+YZSg1ZV5UEPGAAAAF5JREFUCNdjYGAOclE3YGBgSFy1apUYAwPbulOr1rxKYDB8v2fV6X/CDFWnb5/Zu2cpg9aavbtvn1rE4LXq9N09q5ZA6YUwcZg6uD5OsDkTGBgageZKMIDsEVQ1YAAAb6U0csQRSiIAAAAASUVORK5CYII=) 0 0 no-repeat; }
   .terminal-select .ts-icon-more {
     position: absolute;
     display: inline-block;
@@ -208,5 +222,3 @@ input {
     .terminal-select .ts-choose-list .ts-btn-confirm {
       display: inline-block;
       width: 8%; }
-
-/*# sourceMappingURL=jquery.terminalSelect.css.map */
