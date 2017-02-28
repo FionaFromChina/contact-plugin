@@ -154,4 +154,59 @@ input {
       background-color: #72C5FD;
       border-color: #72C5FD; }
 
-/*# sourceMappingURL=modal.css.map */
+.terminal-select {
+  box-sizing: border-box;
+  width: 100%;
+  padding: 0 20px;
+  min-height: 200px;
+  overflow: auto;
+  border: 1px solid #d1d1d1;
+  border-radius: 3px; }
+  .terminal-select .ts-select-item {
+    display: inline-block;
+    margin-right: 10px;
+    padding: 5px;
+    border: 1px solid #eee; }
+  .terminal-select .ts-icon-more {
+    position: absolute;
+    display: inline-block;
+    right: 8px;
+    top: 4px;
+    width: 24px;
+    height: 24px;
+    background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAMAAADXqc3KAAAAM1BMVEUAAABEtf9Etf9Etf9Etf9Etf9Etf9Etf9Etf9Etf9Etf9Etf9Etf9Etf9Etf9Etf////8TFlsEAAAAD3RSTlMA4/CzeWsRCPrTIfPYyhwT6Dm9AAAAgElEQVQoz4WSVxKAIAxEDUWKZb3/aUUJo/T3uW8mhCTLjFVLstsu9ZrFRgkwQpkv9w4/nE/5Scigk+scKDhiNQXmusCotx9RC/H0plEL6CBkS8ggqCUoCBuzRLQ2iK0n9map7uPddrsfHI1kMQ4FzvA6yrH78aLq1dbHYOk5hgk3VzkViX+lHN0AAAAASUVORK5CYII=) 0 0 no-repeat; }
+    .terminal-select .ts-icon-more:hover {
+      background-color: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAMAAADXqc3KAAAAM1BMVEVEtf8AAABEtf9Etf9Etf9Etf9Etf9Etf9Etf9Etf9Etf9Etf9Etf9Etf9Etf9Etf/////i0aIxAAAAEHRSTlPMAMC1Vg4GqY8YYWKtoo4dKtwo+AAAAINJREFUKM+F0tsSgyAMRdFjAuGiVv//a5vWMCqScT+6ZgQCmJwaxJAZtOQQbyCVYNEsJ5SES6k0KIxbXA6QFV2r/KHC2ndY9QeRnkBRIeAJCAqfEWQFHgEr2LeWqQJ5sDi/chb3t+sf0B/JJAldSY6xb/3Yt5eL0mQeX217DODrY3D6Ak+fBVq0cBURAAAAAElFTkSuQmCC) 0 0 no-repeat; }
+  .terminal-select .ts-btn {
+    height: 32px;
+    display: inline-block;
+    font-size: 14px;
+    text-align: center;
+    vertical-align: 0;
+    line-height: 32px;
+    border: 0;
+    border-radius: 3px;
+    outline: none; }
+  .terminal-select .ts-btn-primary {
+    background-color: #53bbff;
+    color: white; }
+  .terminal-select .ts-btn-cancel {
+    background-color: #eee;
+    color: RGBA(0, 0, 0, 0.8); }
+  .terminal-select .ts-choose-list {
+    margin: 20px 0; }
+    .terminal-select .ts-choose-list .ts-add-input-box {
+      position: relative;
+      display: inline-block;
+      width: 90%; }
+      .terminal-select .ts-choose-list .ts-add-input-box input {
+        width: 100%;
+        padding: 0 5px;
+        font-size: 14px; }
+        .terminal-select .ts-choose-list .ts-add-input-box input:focus {
+          outline: none; }
+    .terminal-select .ts-choose-list .ts-btn-confirm {
+      display: inline-block;
+      width: 8%; }
+
+/*# sourceMappingURL=terminal-select.css.map */

@@ -4,170 +4,15 @@
     <meta charset="UTF-8">
     <title>jQuery插件测试</title>
     <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
-    <link href="css/lib/modal.css" rel="stylesheet">
-    <link href="css/lib/terminal-select.css" rel="stylesheet">
-    <link href="css/lib/common.css" rel="stylesheet">
+    <link href="css/terminal-select.css" rel="stylesheet">
 </head>
 <body>
-<!--<p class="error-info">-->
-<!--错误-->
-<!--</p>-->
-<!--<div class="item-group" >-->
-<!--<div class="group-title" >-->
-<!--<label class="group-title-title group-title-title-checked">企业小鱼</label>-->
-<!--</div>-->
-<!--<div class="meeting-contact-item meeting-contact-item-checked" >-->
-<!--<img src="http://devavatar.ainemo.com/nemo/avatar/115488-07da5995-9592-4db5-a015-e90c77f14036-1483497017859" class="item-img" >-->
-<!--<div class="item-detail" >-->
-<!--<label class="item-name" >kelei的小鱼</label>-->
-<!--<br >-->
-<!--<label class="item-phone" >736827</label>-->
-<!--</div>-->
-<!--</div>-->
-<!--<div class="meeting-contact-item" >-->
-<!--<img src="http://devcdn.ainemo.com/page/images/noicon.png" class="item-img" >-->
-<!--<div class="item-detail" >-->
-<!--<label class="item-name" >小鱼智能终端</label>-->
-<!--<br >-->
-<!--<label class="item-phone" >676434</label>-->
-<!--</div>-->
-<!--</div>-->
-<!--</div>-->
-<!--<div class="item-group" >-->
-<!--<div class="group-title" >-->
-<!--<label class="checkbox-uncheck">企业小鱼</label>-->
-<!--</div>-->
-<!--<div class="meeting-contact-item" >-->
-<!--<img src="http://devavatar.ainemo.com/nemo/avatar/115488-07da5995-9592-4db5-a015-e90c77f14036-1483497017859" class="item-img" >-->
-<!--<div class="item-detail" >-->
-<!--<label class="item-name" >kelei的小鱼</label>-->
-<!--<br >-->
-<!--<label class="item-phone" >736827</label>-->
-<!--</div>-->
-<!--</div>-->
-<!--<div class="meeting-contact-item" >-->
-<!--<img src="http://devcdn.ainemo.com/page/images/noicon.png" class="item-img" >-->
-<!--<div class="item-detail" >-->
-<!--<label class="item-name" >小鱼智能终端</label>-->
-<!--<br >-->
-<!--<label class="item-phone" >676434</label>-->
-<!--</div>-->
-<!--</div>-->
-<!--</div>-->
-<!--<div class="item-group" >-->
-<!--<div class="group-title" >-->
-<!--<label class="checkbox-uncheck">企业小鱼</label>-->
-<!--</div>-->
-<!--<div class="meeting-contact-item" >-->
-<!--<img src="http://devavatar.ainemo.com/nemo/avatar/115488-07da5995-9592-4db5-a015-e90c77f14036-1483497017859" class="item-img" >-->
-<!--<div class="item-detail" >-->
-<!--<label class="item-name" >kelei的小鱼</label>-->
-<!--<br >-->
-<!--<label class="item-phone" >736827</label>-->
-<!--</div>-->
-<!--</div>-->
-<!--<div class="meeting-contact-item" >-->
-<!--<img src="http://devcdn.ainemo.com/page/images/noicon.png" class="item-img" >-->
-<!--<div class="item-detail" >-->
-<!--<label class="item-name" >小鱼智能终端</label>-->
-<!--<br >-->
-<!--<label class="item-phone" >676434</label>-->
-<!--</div>-->
-<!--</div>-->
-<!--</div>-->
-<!--<div class="item-group" >-->
-<!--<div class="group-title" >-->
-<!--<label class="checkbox-uncheck">企业小鱼</label>-->
-<!--</div>-->
-<!--<div class="meeting-contact-item" >-->
-<!--<img src="http://devavatar.ainemo.com/nemo/avatar/115488-07da5995-9592-4db5-a015-e90c77f14036-1483497017859" class="item-img" >-->
-<!--<div class="item-detail" >-->
-<!--<label class="item-name" >kelei的小鱼</label>-->
-<!--<br >-->
-<!--<label class="item-phone" >736827</label>-->
-<!--</div>-->
-<!--</div>-->
-<!--<div class="meeting-contact-item" >-->
-<!--<img src="http://devcdn.ainemo.com/page/images/noicon.png" class="item-img" >-->
-<!--<div class="item-detail" >-->
-<!--<label class="item-name" >小鱼智能终端</label>-->
-<!--<br >-->
-<!--<label class="item-phone" >676434</label>-->
-<!--</div>-->
-<!--</div>-->
-<!--</div>-->
-<!--<div class="item-group" >-->
-<!--<div class="group-title" >-->
-<!--<label class="checkbox-uncheck">企业小鱼</label>-->
-<!--</div>-->
-<!--<div class="meeting-contact-item" >-->
-<!--<img src="http://devavatar.ainemo.com/nemo/avatar/115488-07da5995-9592-4db5-a015-e90c77f14036-1483497017859" class="item-img" >-->
-<!--<div class="item-detail" >-->
-<!--<label class="item-name" >kelei的小鱼</label>-->
-<!--<br >-->
-<!--<label class="item-phone" >736827</label>-->
-<!--</div>-->
-<!--</div>-->
-<!--<div class="meeting-contact-item" >-->
-<!--<img src="http://devcdn.ainemo.com/page/images/noicon.png" class="item-img" >-->
-<!--<div class="item-detail" >-->
-<!--<label class="item-name" >小鱼智能终端</label>-->
-<!--<br >-->
-<!--<label class="item-phone" >676434</label>-->
-<!--</div>-->
-<!--</div>-->
-<!--</div>-->
 
 
-<!--<div class="nemo-mask-new" id="addItemModal">-->
-    <!--<div class="inv-add-dialog" >-->
-        <!--<div class="dialog-bar">-->
-            <!--<span class="dialog-title">从企业通讯录邀请</span>-->
-            <!--<span class="close-btn" >×</span>-->
-        <!--</div>-->
-        <!--<div class="content" >-->
-            <!--<div class="input-search" >-->
-                <!--<input placeholder="" value="" >-->
-                <!--<div class="icon-search" ></div>-->
-            <!--</div>-->
-            <!--<div class="choose">-->
-                <!--<div class="choose-all choose-all-checked">全选</div>-->
-            <!--</div>-->
-            <!--<div class="add-list">-->
-                <!--<div class="item-group" >-->
-                    <!--<div class="group-title" >-->
-                        <!--<label class="checkbox-uncheck">企业小鱼</label>-->
-                    <!--</div>-->
-                    <!--<div class="meeting-contact-item" >-->
-                        <!--<img src="http://devavatar.ainemo.com/nemo/avatar/115488-07da5995-9592-4db5-a015-e90c77f14036-1483497017859" class="item-img" >-->
-                        <!--<div class="item-detail" >-->
-                            <!--<label class="item-name" >kelei的小鱼</label>-->
-                            <!--<br >-->
-                            <!--<label class="item-phone" >736827</label>-->
-                        <!--</div>-->
-                    <!--</div>-->
-                    <!--<div class="meeting-contact-item" >-->
-                        <!--<img src="http://devcdn.ainemo.com/page/images/noicon.png" class="item-img" >-->
-                        <!--<div class="item-detail" >-->
-                            <!--<label class="item-name" >小鱼智能终端</label>-->
-                            <!--<br >-->
-                            <!--<label class="item-phone" >676434</label>-->
-                        <!--</div>-->
-                    <!--</div>-->
-                <!--</div>-->
-            <!--</div>-->
-        <!--</div>-->
-        <!--<div class="btn-area inv-search-btn-area" >-->
-            <!--<a class="btn btn-cancel" >取消</a>-->
-            <!--<a class="btn btn-default" >确定</a>-->
-        <!--</div>-->
-    <!--</div>-->
-<!--</div>-->
-
-<div class="terminal-select"></div>
+<div class="terminal-select" id="test1"></div>
+<div class="terminal-select" id="test2"></div>
 <script src="js/libs/jquery.js"></script>
-<!--<script src="js/libs/modal.js"></script>-->
-<script src="js/jquery.getcontact.js"></script>
+<script src="../dist/js/jquery.getcontact.min.js"></script>
 <script>
 
     var options = {
@@ -235,21 +80,25 @@
         }
     };
 
-    $('.terminal-select').terminalSelect({
+    $($('#test1')).terminalSelect();
+
+    $($('#test2')).terminalSelect({
+        inputName:"test2",
         initData:[{
-            id:"1",
-            name:"aa",
+            id:"3",
+            name:"cccc",
             avatar:"imgsrc",
             type:"2",
             number:"12"
         },{
-            id:"2",
-            name:"bbb",
+            id:"4",
+            name:"dddddd",
             avatar:"imgsrc",
             type:"2",
             number:"1900"
         }],
         contactUrl:"initData.json",
+        terminalInfoUrl:"terminalUrlResponse.json?input=",
         callback:{
             beforeAddedFromInput: function(inputVal) {
 //                alert('添加的有问题!值是'+ inputVal + '不加了~~~');
@@ -272,9 +121,6 @@
 //            }
         }
     });
-    console.log($('.terminal-select').terminalSelect('getSelected'));
-
-
 
 </script>
 </body>

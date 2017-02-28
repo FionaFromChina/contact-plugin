@@ -9,23 +9,9 @@
             var defaults = {
                 initData:[],
                 contactUrl:"",
+                terminalInfoUrl:"",
                 inputName:"terminals",
-                callback:{
-                    //beforeDelete: function(item){
-                    //    //return false; 终端删除
-                    //},
-                    beforeAddedFromInput: function(inputValue){
-                        //return false; 不执行添加到下面框的事件
-                        return {};
-                    },
-                    //onSelect: function(items){
-                    //    //items,被选中的items
-                    //
-                    //},
-                    onfetchedUrlCalled : function(data){
-                        return data;
-                    }
-                }
+                callback:{}
             };
 
 
@@ -47,8 +33,14 @@
                 var $terminalList = $('<div class="ts-select-list"></div>');
 
 
+                var $input = $('<input>',{
+                    'hide':true,
+                    'value':'',
+                    'name':settings.inputName
+                });
+
                 //store data
-                $(this).data({"settings":settings,"selectedData":[]});
+                $(this).data({"settings":settings,"selectedData":[],"inputElm":$input});
 
 
                 if(settings.initData.length > 0) { //初始化数据
@@ -64,8 +56,7 @@
                     }
                 }
 
-                $(this).append($terminalSubDom).append($terminalList);
-
+                $(this).append($terminalSubDom).append($terminalList).after($input);
 
 
                 //PART2: contact dialog dom and event;
@@ -100,15 +91,48 @@
                     $src = $(e.target).parents('.terminal-select'),
                     settings = $src.data('settings'),
                     result;
+                //如果有url,需要从url获取结果
 
-                if(settings.callback.beforeAddedFromInput) {
+                if($.trim(settings.terminalInfoUrl) !== "") {
+                        try{
+                            $.getJSON(settings.terminalInfoUrl + inputVal,function(data) {
 
-                    result = settings.callback.beforeAddedFromInput(inputVal);
-                }
+                                var resultData = data;
 
-                if(typeof(result) === "object" && (!$.isEmptyObject(result))) {
+                                if(settings.callback.onTerminalUrlCalled) {
 
-                    TerminalSelect.addListItem(result,null,$src);
+                                    var callData = settings.callback.onTerminalUrlCalled(data);
+                                    if(callData) {
+                                        resultData = callData;
+                                    }
+                                }
+
+                                if(resultData === undefined) {
+                                    return;
+                                }
+
+                                if(typeof(resultData) === "object" && (!$.isEmptyObject(resultData))) {
+
+                                    TerminalSelect.addListItem(resultData,null,$src);
+
+                                    $(e.target).siblings('.ts-add-input-box').children('#tsAddInput').val("");
+
+                                }else { //传入的数据不对
+                                    if(window.console) {
+                                        console.log('传入或则返回的数据格式有误,请检查');
+                                    }
+                                }
+
+                            }).fail(function(e) {
+                                if(window.console) {
+                                    console.log('获取数据错误');
+                                }
+                            })
+                        }catch (e) {
+                            if(window.console) {
+                                console.log('获取数据错误');
+                            }
+                        }
                 }
 
             });
@@ -170,6 +194,11 @@
                 'html':'<label>' +  item.name + '</label><a class="ts-list-item-delete">' + '删除' + '</a>'
             }));
 
+
+            //新增和删除item的时候都需要重新构建Input元素
+
+            TerminalSelect.updateInputDom(selectedData,$this);
+
         },
 
         deleteListItem : function(id,$src) {
@@ -185,6 +214,8 @@
             //delete dom
             $('.ts-select-item',$src).filter('[data-id='  + id +']').remove();
 
+            TerminalSelect.updateInputDom(obj.selectedData,$src);
+
         },
 
 
@@ -192,24 +223,15 @@
             return $(this).data('selectedData');
         },
 
-        createInputDom : function() {//return a input dom with selected id list as value
+        updateInputDom : function(selectedData,$this) {//return a input dom with selected id list as value
 
-            var values = TerminalSelect.selectedData.map(function(item){
+
+            var values = selectedData.map(function(item){
                 return item.id;
-            });
+            }),
+                $input = $this.data('inputElm');
 
-            if($('#tsHideInput').length > 0 ){
-                $('#tsHideInput').remove();
-            }
-
-            var $input = $('<input>',{
-                'hide':true,
-                'id':'tsHideInput',
-                'value':values,
-                'name':TerminalSelect.settings.inputName
-            });
-
-            return $(this).after($input);
+            $input.val(values);
         },
 
         selectedData :[]
@@ -313,8 +335,6 @@
             //success scene : data is an array.
 
             //todo 这里是否要进行容错?比如有些返回数据是nemoNumber,有些是number或者phone字段等等?
-            //todo 修改html后,这里的渲染逻辑要发生改变
-
 
             var groupsMatch = {"nemos":"企业小鱼","users":"企业用户","bruces":"bruces","boxes":"boxes","h323s":"h323s"};
 
@@ -444,9 +464,9 @@
                     results.push(data);
                 });
 
-                var setttings = $this.data('srcEle').data('settings');
-                if(setttings.callback.onSelect) {
-                    setttings.callback.onSelect(results);
+                var settings = $this.data('srcEle').data('settings');
+                if(settings.callback.onSelect) {
+                    settings.callback.onSelect(results);
                 }
 
                 $this.hide();
