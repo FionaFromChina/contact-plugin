@@ -12,6 +12,16 @@ caeded0fe8ba27770b56a90d82a59335f8007bd7
 * 需要引入的文件：
     * jquery.terminalSelect.min.css 
     * jquery.terminalSelect.min.js
+* 快速开始:
+    ```
+    npm install
+    npm start //gulp 会自动监控scss和js的修改,并重新生成文件到dist目录下
+    ```
+    
+* 文件位置:
+    * dist/css
+    * dist/js
+    
 * 参数介绍
 
         var options = {
@@ -93,11 +103,12 @@ caeded0fe8ba27770b56a90d82a59335f8007bd7
     }
     ```
     不管是从input添加还是从contact list选择后点击确定添加，被添加的数据结构定义如下:
-* options具体说明：
     
 * 针对不同场景的建议：
 * 使用注意事项
     1. div锚点的类名需要为terminal-select,如果需要调用多个该控件，可用id进行区分。
     2. 每个div后面会自动生成一个隐藏的Input对象，name为option里面的inputName参数，方便form提交。
+    
+
 
     
