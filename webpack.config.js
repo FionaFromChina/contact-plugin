@@ -3,11 +3,11 @@ var webpack = require('webpack');
 
 
 var config = {
-    entry: ['./src/js/jquery.getcontact.min.js'],
+    entry: ['./src/js/jquery.terminalSelect.js'],
     output: {
         path: path.join(__dirname, 'dist'),
         publicPath: '/dist/',
-        filename: 'jquery.getcontact.js'
+        filename: 'jquery.terminalSelect.min.js'
     },
     plugins: []
 };
