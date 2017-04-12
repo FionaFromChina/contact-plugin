@@ -100,11 +100,11 @@
         contactUrl:"initData.json",
         terminalInfoUrl:"terminalUrlResponse.json?input=",
         callback:{
-            beforeAddedFromInput: function(inputVal) {
+            onTerminalUrlCalled: function(inputVal) {
 //                alert('添加的有问题!值是'+ inputVal + '不加了~~~');
                 return{
                     id:"789",
-                    displayName:"inputValue",
+                    name:"inputNameFromCallBack",
                     avatar:"imgsrc",
                     type:"2"
                 }
